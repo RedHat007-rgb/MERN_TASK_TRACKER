@@ -9,11 +9,11 @@ function TaskList() {
   const tasks = useRecoilValue(taskAtom);
   const setTasks = useSetRecoilState(taskAtom);
 
+  async function final_value() {
+    const response = await displaytasks();
+    setTasks(response);
+  }
   useEffect(() => {
-    async function final_value() {
-      const response = await displaytasks();
-      setTasks(response);
-    }
     final_value();
   }, []);
 
