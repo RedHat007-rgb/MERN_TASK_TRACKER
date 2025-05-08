@@ -1,29 +1,28 @@
-import axios from "axios";
-import { useEffect, useState } from 'react';
-// import './App.css'
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Typography } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+import { Box } from "@mui/material";
+import TaskList from "./Components/TaskList";
+import TaskForm from "./Components/TaskForm";
+import TaskItem from "./Components/TaskItem";
 
 function App() {
-
-  const[data,setData]=useState("");
-    async function request(){
-      try{
-          const response=await await axios.get("http://localhost:3000/");
-          setData(response.data);
-      }catch(e){
-        console.log(e);
-      }
-      
-    }
-
-    useEffect(()=>{
-      request();
-    },[]);
+  const theme = createTheme({
+    palette: {
+      mode: "dark",
+    },
+  });
 
   return (
-    <>
-     {data}
-    </>
-  )
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box sx={{ margin: 2, gap: 2 }}>
+        <Typography variant="h4">Task Tracker</Typography>
+        <TaskList />
+        <TaskForm />
+      </Box>
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
