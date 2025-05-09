@@ -35,6 +35,7 @@ logs/
 # yarn.lock
 
 # IDE/Editor files
+.prettierrc
 .vscode/
 .idea/
 *.sublime-project
