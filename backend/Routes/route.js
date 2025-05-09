@@ -4,8 +4,8 @@ const router=express.Router();
 
 router.get("/",getAllTasks)
 router.post("/create",createTask)
-router.route("/:name").delete(deleteTask).put(updateTask);
-
+router.route("/:id").put(updateTask);
+router.route("/:id").delete(deleteTask)
 module.exports={
     router
 }
