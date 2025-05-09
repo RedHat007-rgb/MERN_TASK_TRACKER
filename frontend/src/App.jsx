@@ -4,7 +4,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { Box } from "@mui/material";
 import TaskList from "./Components/TaskList";
 import TaskForm from "./Components/TaskForm";
-import TaskItem from "./Components/TaskItem";
 
 function App() {
   const theme = createTheme({
@@ -19,8 +18,8 @@ function App() {
       <Box sx={{ margin: 2, gap: 2 }}>
         <Typography variant="h4">Task Tracker</Typography>
         <TaskList />
-        <TaskForm />
       </Box>
+      <TaskForm />
     </ThemeProvider>
   );
 }
