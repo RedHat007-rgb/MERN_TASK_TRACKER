@@ -29,8 +29,8 @@ function TaskList() {
         }}
       >
         <List sx={{ padding: 0 }}>
-          {tasks.map((task) => (
-            <TaskItem task={task} />
+          {tasks.map((task, _id) => (
+            <TaskItem key={_id} task={task} />
           ))}
         </List>
       </Container>
