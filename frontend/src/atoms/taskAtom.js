@@ -1,7 +1,6 @@
 import { atom } from "recoil";
 
-export const taskAtom=atom({
-    key:"tasks",
-    default:[]
-})
-
+export const taskAtom = atom({
+  key: "tasks",
+  default: [],
+});
