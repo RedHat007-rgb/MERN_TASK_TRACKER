@@ -24,3 +24,27 @@ export const addingTasks = async (title, description) => {
     return e;
   }
 };
+
+export const deleteTasks = async (id) => {
+  try {
+    const response = await axios.delete(`http://localhost:3000/api/${id}`);
+    console.log(response);
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const updateTasks = async (updatedvalue, id) => {
+  try {
+    console.log(updatedvalue);
+    const response = await axios.put(
+      `http://localhost:3000/api/${id}`,
+      updatedvalue
+    );
+    console.log(response);
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+};
