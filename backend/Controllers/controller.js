@@ -15,46 +15,34 @@ const getAllTasks=async (req,res)=>{
     
 }
 const updateTask=async (req,res)=>{
-    const name=req.params.name;
-    console.log(name);
-    const updated_name=req.body.name;
-    const updated_description=req.body.description;
-    const completed=req.body.completed;
+      const allowedFields = ["name", "description", "completed"];
+  const updates = {};
 
-    const updated_fields={};
-    if(updated_name!=undefined) updated_fields.name=updated_name;
-    if(updated_description!=undefined) updated_fields.description=updated_description;
-    if(completed!=undefined) updated_fields.completed=completed;
-    updated_fields.date=Date.now();
-    
-    if (Object.keys(updated_fields).length === 1 && Object.keys(updated_fields)[0] === 'date') {
-     return res.status(400).json({
-      message: 'At least one field (name, description, or completed) must be provided for update',
+  for (const key of allowedFields) {
+    if (req.body.hasOwnProperty(key)) {
+      updates[key] = req.body[key];
+    }
+  }
+  if (updates.length == 0) {
+    res.status(200).json({
+      msg: `please provide aleast one field to update`,
     });
   }
-        
-    try{
-       if(name==undefined ||  name.trim()===""){
-         return res.json({
-            message:"Name field shouldn't be empty.."
-        }).status(404)
-       }
-        const updated_Task=await Task.findOneAndUpdate({ name: { $regex: `^${name}$`, $options: 'i' } },{$set:updated_fields},{ new: true, runValidators: true })
-       
+  const updatedTask = await Task.findByIdAndUpdate(req.params.id, updates, {
+    new: true,
+    runValidators: true,
+  });
 
-        if(!updated_Task){
-            return res.json({
-            message:"Please give the valid name to update the task"
-        }).status(404)
-        }
-         res.json({
-            message:"updating tasks completed...."
-        })
-    }catch(error){
-        return  res.status(500).json({
-        message: 'Please try again later 😭',
-    });
-    }
+  if (!updatedTask) {
+    return res.status(404).send({ error: "Task not found" });
+  }
+  res.status(200).json({
+    msg: {
+      title: `${updatedTask.title}`,
+      description: `${updatedTask.description}`,
+      completed: `${updatedTask.completed}`,
+    },
+  });
    
 }
 const createTask=async (req,res)=>{
